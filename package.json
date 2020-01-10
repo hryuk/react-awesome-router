@@ -1,0 +1,24 @@
+{
+  "name": "react-awesome-router",
+  "version": "1.0.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/history": "^4.7.3",
+    "@types/react": "^16.9.17",
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "history": "^4.10.1",
+    "react": "^16.12.0"
+  }
+}
