@@ -8,10 +8,9 @@ import {useLocation as _useLocation} from './Hooks/useLocation';
 export const useLocation = _useLocation;
 
 export const Router: React.FC<RouterProps> = props => {
-  const history = useRef(createBrowserHistory());
-
+  const history = useRef<any>(null);
   const initialState: RouterState = {
-    location: history.current.location.pathname,
+    location: '',
     params: {},
     routes: props.routes,
     routedElement: null
@@ -19,20 +18,32 @@ export const Router: React.FC<RouterProps> = props => {
 
   const [{location, params, routes, routedElement}, setState] = useState(initialState);
 
-  const unlisten = useRef(
-    history.current.listen(location => {
+  const setLocation = (location: string) => {
+    history.current.push(location);
+  };
+
+  useEffect(() => {
+    history.current = createBrowserHistory();
+    setState({
+      location: history.current.location.pathname,
+      params,
+      routes,
+      routedElement
+    });
+
+    const unlisten = history.current.listen((location: any, action: any) => {
       setState({
-        location: location.pathname + location.search + location.hash,
+        location: location.pathname,
         params,
         routes,
         routedElement
       });
-    })
-  );
+    });
 
-  const setLocation = (location: string) => {
-    history.current.push(location);
-  };
+    return () => {
+      unlisten();
+    };
+  }, []);
 
   useEffect(() => {
     let route = routes.find(route => {
@@ -49,10 +60,6 @@ export const Router: React.FC<RouterProps> = props => {
         routedElement: route.component
       });
     }
-
-    return () => {
-      unlisten.current();
-    };
   }, [location]);
 
   return (
