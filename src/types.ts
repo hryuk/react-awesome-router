@@ -1,12 +1,13 @@
 export interface Route {
   path: string;
-  action: (state: Object) => JSX.Element;
+  component: JSX.Element;
 }
 export interface RouterProps {
   routes: Array<Route>;
 }
 export interface RouterState {
   location: string;
+  params: Object;
   routes: Array<Route>;
   routedElement: JSX.Element | null;
 }

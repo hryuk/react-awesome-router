@@ -1,22 +1,29 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {createBrowserHistory} from 'history';
 import {RouterContext} from './Context';
-import {useLocation as _useLocation} from './Hooks/useLocation';
+
 import {RouterProps, RouterState} from './types';
+import Path from './PathUtils';
+import {useLocation as _useLocation} from './Hooks/useLocation';
+export const useLocation = _useLocation;
 
 export const Router: React.FC<RouterProps> = props => {
   const history = useRef(createBrowserHistory());
 
-  const [{location, routes, routedElement}, setState] = useState<RouterState>({
+  const initialState: RouterState = {
     location: history.current.location.pathname,
+    params: {},
     routes: props.routes,
     routedElement: null
-  });
+  };
+
+  const [{location, params, routes, routedElement}, setState] = useState(initialState);
 
   const unlisten = useRef(
-    history.current.listen((location, action) => {
+    history.current.listen(location => {
       setState({
         location: location.pathname + location.search + location.hash,
+        params,
         routes,
         routedElement
       });
@@ -28,15 +35,18 @@ export const Router: React.FC<RouterProps> = props => {
   };
 
   useEffect(() => {
-    let route = routes.find(rt => {
-      return rt.path === location;
+    let route = routes.find(route => {
+      return Path.match(route.path, location);
     });
 
     if (route) {
+      const parsedParams = Path.parse(route.path, location);
+
       setState({
         location,
+        params: parsedParams,
         routes,
-        routedElement: route.action({})
+        routedElement: route.component
       });
     }
 
@@ -46,12 +56,8 @@ export const Router: React.FC<RouterProps> = props => {
   }, [location]);
 
   return (
-    <RouterContext.Provider
-      value={{location: location, setLocation: setLocation}}
-    >
+    <RouterContext.Provider value={{location: location, setLocation: setLocation, params: params}}>
       {routedElement}
     </RouterContext.Provider>
   );
 };
-
-export const useLocation = _useLocation;
