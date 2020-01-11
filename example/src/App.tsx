@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-
+import logo from './logo.svg';
 import {Router} from 'react-awesome-router';
 
 import Route1 from './Components/Route1';
@@ -25,7 +25,10 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <Router routes={routes} />
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <Router routes={routes} />
+      </header>
     </div>
   );
 };

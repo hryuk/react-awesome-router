@@ -24,6 +24,25 @@
   color: white;
 }
 
+.App button {
+  background-color: #61dafb;
+  border: 2px solid black;
+  margin: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: background-color 0.2s ease;
+  transition: border 0.2s ease;
+  cursor: pointer;
+}
+
+.App button:hover {
+  background-color: #99e7fd;
+  border: 2px solid white;
+}
+
 .App-link {
   color: #61dafb;
 }

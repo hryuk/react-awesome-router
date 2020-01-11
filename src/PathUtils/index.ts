@@ -1,6 +1,6 @@
 import {pathToRegexp, Key} from 'path-to-regexp';
 
-const match = (path: string, route: string) => {
+const match = (path: string, route: string): boolean => {
   return pathToRegexp(path).test(route);
 };
 
