@@ -1,33 +1,21 @@
 import React from 'react';
 import './App.css';
 import logo from './logo.svg';
-import {Router} from 'react-awesome-router';
-
-import Route1 from './Components/Route1';
-import Route2 from './Components/Route2';
-import Route3 from './Components/Route3';
+import {Routes, useLocation} from 'react-awesome-router';
 
 const App: React.FC = () => {
-  const routes = [
-    {
-      path: '/',
-      component: <Route1 />
-    },
-    {
-      path: '/route2',
-      component: <Route2 />
-    },
-    {
-      path: '/route3/:children',
-      component: <Route3 />
-    }
-  ];
+  const {setLocation} = useLocation();
 
   return (
     <div className="App">
       <header className="App-header">
+        <div className="navbar">
+          <button onClick={() => setLocation('/')}>Index</button>
+          <button onClick={() => setLocation('/route2')}>Route 2</button>
+          <button onClick={() => setLocation('/route3/test')}>Route3</button>
+        </div>
         <img src={logo} className="App-logo" alt="logo" />
-        <Router routes={routes} />
+        <Routes />
       </header>
     </div>
   );

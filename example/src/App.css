@@ -24,6 +24,21 @@
   color: white;
 }
 
+.App-header .navbar {
+  display: flex;
+}
+
+.App-header .route {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  max-height: 200px;
+  border: 1px solid #61dafb;
+  padding: 20px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
 .App button {
   background-color: #61dafb;
   border: 2px solid black;
