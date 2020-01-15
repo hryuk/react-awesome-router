@@ -2,17 +2,17 @@ import React from 'react';
 
 import { useLocation } from 'react-awesome-router';
 
-const Route3: React.FC = () => {
-  const { location, params, setLocation } = useLocation();
+const Unauthorized: React.FC = () => {
+  const { location, context, setLocation } = useLocation();
 
   return (
     <div className="route">
-      <div>ROUTE 3</div>
+      <div>UNAUTHORIZED</div>
       <div>Location: '{location}'</div>
-      <div>Params: '{JSON.stringify(params)}'</div>
+      <div>Context: '{JSON.stringify(context)}'</div>
       <button onClick={() => setLocation('/')}>Go to index</button>
     </div>
   );
 };
 
-export default Route3;
+export default Unauthorized;

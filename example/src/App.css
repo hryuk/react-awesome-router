@@ -28,6 +28,15 @@
   display: flex;
 }
 
+.App-header .navbar .login {
+  background-color: lightgreen !important;
+}
+
+.App-header .navbar .logout {
+  background-color: dimgray !important;
+  color: white !important;
+}
+
 .App-header .route {
   display: flex;
   flex-direction: column;

@@ -1,8 +1,8 @@
-import {useContext} from 'react';
-import {RouterContext} from '../Context';
+import { useContext } from 'react';
+import { RouterContext } from '../Context';
 
 export const useLocation = () => {
-  const {location, params, setLocation} = useContext(RouterContext);
+  const { location, context, params, setLocation, setContext } = useContext(RouterContext);
 
-  return {location, params, setLocation};
+  return { location, context, params, setLocation, setContext };
 };

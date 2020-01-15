@@ -1,5 +1,6 @@
 {
     "prettier.singleQuote": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "prettier.printWidth": 100
+    "prettier.printWidth": 100,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

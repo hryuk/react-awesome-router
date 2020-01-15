@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {createBrowserHistory} from 'history';
-import {RouterContext} from '../Context';
+import React, { useState, useEffect, useRef } from 'react';
+import { createBrowserHistory } from 'history';
+import { RouterContext } from '../Context';
 
-import {RouterProps, RouterState} from '../types';
+import { RouterProps, RouterState } from '../types';
 import Path from '../PathUtils';
 
 export const Router: React.FC<RouterProps> = props => {
@@ -10,6 +10,7 @@ export const Router: React.FC<RouterProps> = props => {
   const initialState: RouterState = {
     location: '',
     params: {},
+    context: {},
     routes: props.routes,
     routedElement: null
   };
@@ -22,21 +23,24 @@ export const Router: React.FC<RouterProps> = props => {
     }
   };
 
+  const setContext = (context: Object) => {
+    setState({
+      ...state,
+      context: Object.assign(state.context, context)
+    });
+  };
+
   useEffect(() => {
     history.current = createBrowserHistory();
     setState({
-      location: history.current.location.pathname,
-      params: state.params,
-      routes: state.routes,
-      routedElement: state.routedElement
+      ...state,
+      location: history.current.location.pathname
     });
 
-    const unlisten = history.current.listen((location: any, action: any) => {
+    const unlisten = history.current.listen((location: any) => {
       setState({
-        location: location.pathname,
-        params: state.params,
-        routes: state.routes,
-        routedElement: state.routedElement
+        ...state,
+        location: location.pathname
       });
     });
 
@@ -51,12 +55,30 @@ export const Router: React.FC<RouterProps> = props => {
     });
 
     if (route) {
-      const parsedParams = Path.parse(route.path, state.location);
+      if (route.guards) {
+        for (const guard of route.guards) {
+          if (
+            !guard.middleware({
+              location: state.location,
+              setLocation,
+              setContext,
+              context: state.context,
+              params: state.params,
+              component: state.routedElement
+            })
+          ) {
+            setState({
+              ...state,
+              routedElement: guard.fallback
+            });
+            return;
+          }
+        }
+      }
 
       setState({
-        location: state.location,
-        params: parsedParams,
-        routes: state.routes,
+        ...state,
+        params: Path.parse(route.path, state.location),
         routedElement: route.component
       });
     }
@@ -66,7 +88,9 @@ export const Router: React.FC<RouterProps> = props => {
     <RouterContext.Provider
       value={{
         location: state.location,
+        context: state.context,
         setLocation: setLocation,
+        setContext: setContext,
         params: state.params,
         component: state.routedElement
       }}
