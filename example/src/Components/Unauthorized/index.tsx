@@ -7,9 +7,8 @@ const Unauthorized: React.FC = () => {
 
   return (
     <div className="route">
-      <div>UNAUTHORIZED</div>
-      <div>Location: '{location}'</div>
-      <div>Context: '{JSON.stringify(context)}'</div>
+      <div className="NotAllowed">UNAUTHORIZED</div>
+      <textarea value={`Location: '${location}'\nContext: ${JSON.stringify(context)}`} />
       <button onClick={() => setLocation('/')}>Go to index</button>
     </div>
   );

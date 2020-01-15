@@ -42,10 +42,22 @@
   flex-direction: column;
   min-height: 200px;
   max-height: 200px;
-  border: 1px solid #61dafb;
+  max-width: 400px;
+  min-width: 400px;
+  border: 1px solid dimgray;
   padding: 20px;
   padding-left: 200px;
   padding-right: 200px;
+}
+
+.App-header .route .Allowed {
+  color: lightgreen;
+  font-weight: 600;
+}
+
+.App-header .route .NotAllowed {
+  color: lightcoral;
+  font-weight: 600;
 }
 
 .App button {
@@ -60,6 +72,15 @@
   transition: background-color 0.2s ease;
   transition: border 0.2s ease;
   cursor: pointer;
+}
+
+.App textarea {
+  resize: none;
+  background: #282c34;
+  color: white;
+  border: 1px solid black;
+  min-height: 50px;
+  margin-top: 50px;
 }
 
 .App button:hover {

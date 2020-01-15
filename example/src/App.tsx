@@ -4,10 +4,12 @@ import logo from './logo.svg';
 import { Routes, useLocation } from 'react-awesome-router';
 
 const App: React.FC = () => {
-  const { context, setLocation, setContext } = useLocation();
+  const { location, context, setLocation, setContext } = useLocation();
 
   const login = () => {
     setContext({ auth: { logued: true } });
+    //Optional, force refresh on login
+    setLocation(location);
   };
 
   const logout = () => {

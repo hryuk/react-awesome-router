@@ -1,25 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory, History } from 'history';
 import { RouterContext } from '../Context';
 
 import { RouterProps, RouterState } from '../types';
 import Path from '../PathUtils';
 
 export const Router: React.FC<RouterProps> = props => {
-  const history = useRef<any>(null);
+  const history = useRef<History | null>(null);
   const initialState: RouterState = {
     location: '',
     params: {},
     context: {},
     routes: props.routes,
-    routedElement: null
+    routedElement: null,
+    forceRefresh: 0
   };
 
   const [state, setState] = useState(initialState);
 
   const setLocation = (location: string) => {
     if (state.location !== location) {
-      history.current.push(location);
+      history.current?.push(location);
+    } else {
+      setState({
+        ...state,
+        forceRefresh: state.forceRefresh + 1
+      });
     }
   };
 
@@ -37,7 +43,7 @@ export const Router: React.FC<RouterProps> = props => {
       location: history.current.location.pathname
     });
 
-    const unlisten = history.current.listen((location: any) => {
+    const unlisten = history.current.listen(location => {
       setState({
         ...state,
         location: location.pathname
@@ -82,7 +88,7 @@ export const Router: React.FC<RouterProps> = props => {
         routedElement: route.component
       });
     }
-  }, [state.location]);
+  }, [state.location, state.forceRefresh]);
 
   return (
     <RouterContext.Provider

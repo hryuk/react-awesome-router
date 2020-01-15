@@ -11,6 +11,7 @@ export interface RouterState {
   params: Object;
   routes: Array<Route>;
   context: Object;
+  forceRefresh: number;
   routedElement: JSX.Element | null;
 }
 
