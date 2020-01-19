@@ -8,7 +8,7 @@ const Route1: React.FC = () => {
   return (
     <div className="route">
       <div className="Allowed">ROUTE 1</div>
-      <textarea value={`Location: '${location}'`} />
+      <textarea defaultValue={`Location: '${location}'`} />
       <button onClick={() => setLocation('/')}>Go to index</button>
     </div>
   );

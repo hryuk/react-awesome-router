@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createBrowserHistory, History } from 'history';
 import { RouterContext } from '../Context';
 
-import { RouterProps, RouterState } from '../types';
+import { IRouterProps, IRouterState } from '../types';
 import Path from '../PathUtils';
 
-export const Router: React.FC<RouterProps> = props => {
+export const Router: React.FC<IRouterProps> = props => {
   const history = useRef<History | null>(null);
-  const initialState: RouterState = {
+  const initialState: IRouterState = {
     location: '',
     params: {},
     context: {},

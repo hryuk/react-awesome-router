@@ -15,7 +15,7 @@ const Route2: React.FC = () => {
   return (
     <div className="route">
       <div className="Allowed">Private Route</div>
-      <textarea value={`Location: '${location}'\nContext: ${JSON.stringify(context)}`} />
+      <textarea defaultValue={`Location: '${location}'\nContext: ${JSON.stringify(context)}`} />
       <div></div>
       <button onClick={() => setLocation('/')}>Go to index</button>
     </div>

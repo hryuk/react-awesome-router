@@ -1,15 +1,15 @@
-export interface Route {
+export interface IRoute {
   path: string;
   component: JSX.Element;
   guards?: Array<IGuard>;
 }
-export interface RouterProps {
-  routes: Array<Route>;
+export interface IRouterProps {
+  routes: Array<IRoute>;
 }
-export interface RouterState {
+export interface IRouterState {
   location: string;
   params: Object;
-  routes: Array<Route>;
+  routes: Array<IRoute>;
   context: Object;
   forceRefresh: number;
   routedElement: JSX.Element | null;

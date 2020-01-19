@@ -8,7 +8,7 @@ const Route3: React.FC = () => {
   return (
     <div className="route">
       <div className="Allowed">ROUTE 3</div>
-      <textarea value={`Location: '${location}'\nParams: ${JSON.stringify(params)}`} />
+      <textarea defaultValue={`Location: '${location}'\nParams: ${JSON.stringify(params)}`} />
 
       <button onClick={() => setLocation('/')}>Go to index</button>
     </div>
