@@ -6,9 +6,9 @@ A simple, lightweight, middleware oriented router for react applications.
 
 Comming from non-react world, routing throgh JSX components feels anoying to me. I don't like to spread the routing logic between different react components; I don't like to write JSX components to extend router capabilities (like auth). I also missed other features I enjoy and was used to like [Angular guards](https://angular.io/api/router/CanActivate) and [Koa](https://github.com/koajs/koa) middleware based architecture.
 
-When starting with react hooks, I realized how simple it will be to write a react router with hooks, [history.js](https://github.com/ReactTraining/history) and [path-to-regexp](https://github.com/pillarjs/path-to-regexp), indeed I think the whole module is far below 200 lines of code. This module allows to provide basic routing features to small applications, as well as more advanced features on bigger applications through the use of custom ad-hoc middlewares.
+When starting with react hooks, I realized how simple it will be to write a react router with hooks, [history.js](https://github.com/ReactTraining/history) and [path-to-regexp](https://github.com/pillarjs/path-to-regexp), indeed I think the whole module is far below 200 lines of code. This module provides basic routing features to small applications, and allows more advanced features on bigger applications through the use of custom ad-hoc middlewares.
 
-## Installation
+## Installation (not published yet)
 
 ```bash
 npm i react-awesome-router --save
@@ -16,7 +16,7 @@ npm i react-awesome-router --save
 
 ## Getting started
 
-First, wrap the component you want to provide with routes with the router component.
+First, wrap the component you want to enable router on with the router component.
 
 ```jsx
 import { Router } from 'react-awesome-router';
@@ -139,7 +139,7 @@ export const routes = [
 ];
 ```
 
-Full working example application, bootstraped with create-react-app is provided in the [example](https://github.com/hzeroo/react-awesome-router/tree/master/example) folder.
+Fully working example application, bootstraped with create-react-app is provided in the [example](https://github.com/hzeroo/react-awesome-router/tree/master/example) directory.
 
 ## Running for developement
 
