@@ -1,4 +1,4 @@
-# React Awesome Router
+# React Awesome Router (WIP! big breaking changes comming in the following days)
 
 A simple, lightweight, middleware oriented router for react applications.
 
@@ -14,11 +14,130 @@ When starting with react hooks, I realized how simple it will be to write a reac
 npm i react-awesome-router --save
 ```
 
-## How it looks
+## Getting started
 
-**(WIP)**
+First you need to wrap the component you want to provide with routes with the router component.
 
-Full working example application, bootstraped with create-react-app is provided in the example folder.
+```jsx
+import { Router } from 'react-awesome-router';
+import { routes } from './routes';
+
+ReactDOM.render(
+  <Router routes={routes}>
+    <App />
+  </Router>,
+  document.getElementById('root')
+);
+```
+
+Then use Routes component where you want the routes to be rendered:
+
+```jsx
+const App = () => {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <Routes />
+      </header>
+    </div>
+  );
+};
+export default App;
+```
+
+Routes are defined as an array of routes. A route is an object with a path and a JSX Component that will be rendered when the path match the current location.
+
+```jsx
+import Route1 from './Components/Route1';
+
+export const routes: = [
+  {
+    path: '/',
+    component: <Route1 />
+  }
+];
+```
+
+A react hook is provided to access router capabilities anywhere inside the Router component:
+
+```js
+import { useLocation } from 'react-awesome-router';
+
+const { location, context, params, setLocation, setContext } = useLocation();
+```
+
+- **location** (string): The current routed path.
+- **setLocation** (function(string)=>void): Sets the current location. If the location provided is the current location, triggers another render of the current route.
+- **context** (Object): A global router state. Can be used to set global state related to router, such as authentication state or user information.
+- **setContext** (function(Object)=>void): Function to add information to router state. Note that Object properties are copied to current router state, only existing properties will be replaced.
+- **params** (Object): An Object representing the current route params.
+
+You can define route params and access them with ease with the hook:
+
+```jsx
+export const routes: = [
+  {
+    path: '/',
+    component: <Route1 />
+  },
+  {
+    path: '/route3/:param1/:param2',
+    component: <Route3 />
+  }
+];
+```
+
+```jsx
+import { useLocation } from 'react-awesome-router';
+
+const Route3 = () => {
+  const { params } = useLocation();
+
+  return (
+    <div className="route">
+      <div>Param1: {params.param1}</div>
+      <div>Param2: {params.param2}</div>
+    </div>
+  );
+};
+
+export default Route3;
+```
+
+You can also define Route guards. Guards are Objects with two members:
+
+- **middleware**: A function returning a boolean. A router object is provided as first param, wich allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component.
+- **fallback**: A JSX component that will be rendered when the middleware returns false.
+
+Guards are defined as an optional Route property.
+
+> Note that guards are defined as an array, and are executed in the same order as provided: The router will render the first guard's fallback that returns false.
+
+```jsx
+const authGuard = {
+  middleware: router => {
+    const authenticated = !!router.context?.auth?.logued;
+    return authenticated;
+  },
+
+  fallback: <Unauthorized />
+};
+
+export const routes = [
+  {
+    path: '/',
+    component: <Route1 />
+  },
+  {
+    path: '/private',
+    component: <Route2 />,
+    guards: [authGuard]
+  }
+];
+```
+
+Full working example application, bootstraped with create-react-app is provided in the [example](https://github.com/hzeroo/react-awesome-router/tree/master/example) folder.
 
 ## Running for developement
 
