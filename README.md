@@ -19,8 +19,8 @@ npm i react-awesome-router --save
 First, wrap the component you want to enable router on with the router component.
 
 ```jsx
-import { Router } from 'react-awesome-router';
-import { routes } from './routes';
+import {Router} from 'react-awesome-router';
+import {routes} from './routes';
 
 ReactDOM.render(
   <Router routes={routes}>
@@ -64,16 +64,18 @@ A react hook is provided to access router resources anywhere inside the Router c
 > Note that you can only use the hook on components that are children of the component wrapped by Router:
 
 ```js
-import { useLocation } from 'react-awesome-router';
+import {useLocation} from 'react-awesome-router';
 
-const { location, context, params, setLocation, setContext } = useLocation();
+const {location, context, params, setLocation, setContext} = useLocation();
 ```
 
-- **location** (string): The current routed path.
-- **setLocation** (function(string)=>void): Sets the current location. If the location provided is the current location, triggers another render of the current route.
-- **context** (Object): A global router state. Can be used to set global state related to router, such as authentication state or user information.
-- **setContext** (function(Object)=>void): Function to add information to router state. Note that Object properties are copied to current router state, only existing properties will be replaced.
-- **params** (Object): An Object representing the current route params.
+| Property | Type | Description |
+| -------- | :........: | ........... |
+| **location** | `string` | The current routed path |
+| **setLocation** | `function(string)=>void` | Sets the current location. If the location provided is the current location, triggers another render of the current route |
+| **context** | `Object` | A global router state. Can be used to set global state related to router, such as authentication state or user information |
+| **setContext** | `function(Object)=>void` | Add information to router state. Note that Object properties are copied to current router state, only existing properties will be replaced |
+| **params** | `Object` | An Object representing the current route params |
 
 You can define route params and access them with ease with the hook:
 
@@ -91,10 +93,10 @@ export const routes: = [
 ```
 
 ```jsx
-import { useLocation } from 'react-awesome-router';
+import {useLocation} from 'react-awesome-router';
 
 const Route3 = () => {
-  const { params } = useLocation();
+  const {params} = useLocation();
 
   return (
     <div className="route">
@@ -108,9 +110,10 @@ export default Route3;
 ```
 
 You can also define Route guards. Guards are Objects with two members:
-
-- **middleware**: A function returning a boolean. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component.
-- **fallback**: A JSX component that will be rendered when the middleware returns false.
+| Property | Type | Description |
+| -------- | :........: | ........... |
+| **middleware** | `(router: Router) => boolean` | A function returning a boolean. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component |
+| **fallback** | `JSX.Element | null` | A JSX component that will be rendered when the middleware returns false |
 
 Guards are defined as an optional Route property.
 
