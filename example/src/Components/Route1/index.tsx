@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { useLocation } from 'react-awesome-router';
+import {useLocation} from 'react-awesome-router';
 
 const Route1: React.FC = () => {
-  const { location, setLocation } = useLocation();
+  const {location, setLocation} = useLocation();
 
   return (
     <div className="route">
       <div className="Allowed">ROUTE 1</div>
-      <textarea defaultValue={`Location: '${location}'`} />
+      <textarea readOnly defaultValue={`Location: '${location}'`} />
       <button onClick={() => setLocation('/')}>Go to index</button>
     </div>
   );

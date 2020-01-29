@@ -4,9 +4,9 @@ A simple, lightweight, middleware oriented router for react applications.
 
 ## Motivation
 
-Comming from non-react world, routing throgh JSX components feels anoying to me. I don't like to spread the routing logic between different react components; I don't like to write JSX components to extend router capabilities (like auth). I also missed other features I enjoy and was used to like [Angular guards](https://angular.io/api/router/CanActivate) and [Koa](https://github.com/koajs/koa) middleware based architecture.
+Comming from non-react world, routing throgh JSX components feels annoying to me. I don't like to spread the routing logic between different react components or write JSX components to extend router capabilities (like auth). I also missed other features I enjoy and was used to like [Angular guards](https://angular.io/api/router/CanActivate) and [Koa](https://github.com/koajs/koa) middleware based architecture.
 
-When starting with react hooks, I realized how simple it will be to write a react router with hooks, [history.js](https://github.com/ReactTraining/history) and [path-to-regexp](https://github.com/pillarjs/path-to-regexp), indeed I think the whole module is far below 200 lines of code. This module provides basic routing features to small applications, and allows more advanced features on bigger applications through the use of custom ad-hoc middlewares.
+When starting with react hooks, I realized how simple it will be to write a react router with hooks, [history.js](https://github.com/ReactTraining/history) and [path-to-regexp](https://github.com/pillarjs/path-to-regexp); indeed I think the whole module is far below 200 lines of code. This module provides basic routing features to small applications, and allows more advanced features on bigger applications through the use of custom ad-hoc middlewares.
 
 ## Installation (not published yet)
 
@@ -19,8 +19,8 @@ npm i react-awesome-router --save
 First, wrap the component you want to enable router on with the router component.
 
 ```jsx
-import { Router } from 'react-awesome-router';
-import { routes } from './routes';
+import {Router} from 'react-awesome-router';
+import {routes} from './routes';
 
 ReactDOM.render(
   <Router routes={routes}>
@@ -61,19 +61,21 @@ export const routes: = [
 
 A react hook is provided to access router resources anywhere inside the Router component.
 
-> Note that you can only use the hook on components that are children of the component wrapped by Router:
-
 ```js
-import { useLocation } from 'react-awesome-router';
+import {useLocation} from 'react-awesome-router';
 
-const { location, context, params, setLocation, setContext } = useLocation();
+const {location, context, params, setLocation, setContext} = useLocation();
 ```
 
-- **location** (string): The current routed path.
-- **setLocation** (function(string)=>void): Sets the current location. If the location provided is the current location, triggers another render of the current route.
-- **context** (Object): A global router state. Can be used to set global state related to router, such as authentication state or user information.
-- **setContext** (function(Object)=>void): Function to add information to router state. Note that Object properties are copied to current router state, only existing properties will be replaced.
-- **params** (Object): An Object representing the current route params.
+| Property        |           Type           | Description                                                                                                                                |
+| --------------- | :----------------------: | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **location**    |         `string`         | The current routed path                                                                                                                    |
+| **setLocation** | `function(string)=>void` | Sets the current location. If the location provided is the current location, triggers another render of the current route                  |
+| **context**     |         `Object`         | A global router state. Can be used to set global state related to router, such as authentication state or user information                 |
+| **setContext**  | `function(Object)=>void` | Add information to router state. Note that Object properties are copied to current router state, only existing properties will be replaced |
+| **params**      |         `Object`         | An Object representing the current route params                                                                                            |
+
+> Note that you can only use the hook on components that are children of the component wrapped by Router
 
 You can define route params and access them with ease with the hook:
 
@@ -91,10 +93,10 @@ export const routes: = [
 ```
 
 ```jsx
-import { useLocation } from 'react-awesome-router';
+import {useLocation} from 'react-awesome-router';
 
 const Route3 = () => {
-  const { params } = useLocation();
+  const {params} = useLocation();
 
   return (
     <div className="route">
@@ -107,14 +109,13 @@ const Route3 = () => {
 export default Route3;
 ```
 
-You can also define Route guards. Guards are Objects with two members:
-
-- **middleware**: A function returning a boolean. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component.
-- **fallback**: A JSX component that will be rendered when the middleware returns false.
+You can also define Route guards. Guards are executed after route resolution and before component render, allowing to conditionally render the component basend on custom rules like authentication or user role. Guards are Objects with two members:
+| Property | Type | Description |
+| -------- | :----------: | ----------|
+| **middleware** | `(router: Router) => boolean` | A function returning a boolean. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component |
+| **fallback** | `JSX.Element | null` | A JSX component that will be rendered when the middleware returns false |
 
 Guards are defined as an optional Route property.
-
-> Note that guards are defined as an array, and are executed in the same order as provided: The router will render the first guard's fallback that returns false.
 
 ```jsx
 const authGuard = {
@@ -138,6 +139,8 @@ export const routes = [
   }
 ];
 ```
+
+> Note that guards are defined as an array, and are executed in the same order as provided: The router will render the first guard's fallback that returns false, or the route component if all guards return true.
 
 Fully working example application, bootstraped with create-react-app is provided in the [example](https://github.com/hzeroo/react-awesome-router/tree/master/example) directory.
 
