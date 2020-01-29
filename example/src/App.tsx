@@ -1,19 +1,19 @@
 import React from 'react';
 import './App.css';
 import logo from './logo.svg';
-import { Routes, useLocation } from 'react-awesome-router';
+import {Routes, useLocation} from 'react-awesome-router';
 
 const App: React.FC = () => {
-  const { location, context, setLocation, setContext } = useLocation();
+  const {location, context, setLocation, setContext} = useLocation();
 
   const login = () => {
-    setContext({ auth: { logued: true } });
+    setContext({auth: {logued: true, username: 'notadmin'}});
     //Optional, force refresh on login
     setLocation(location);
   };
 
   const logout = () => {
-    setContext({ auth: { logued: false } });
+    setContext({auth: {logued: false, username: ''}});
   };
 
   return (
