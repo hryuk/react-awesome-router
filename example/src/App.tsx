@@ -23,6 +23,7 @@ const App: React.FC = () => {
           <button onClick={() => setLocation('/')}>Index</button>
           <button onClick={() => setLocation('/private')}>Private Route</button>
           <button onClick={() => setLocation('/route3/hello/world')}>Param Route</button>
+          <button onClick={() => setLocation('/admin')}>Admin</button>
           {context?.auth?.logued ? (
             <button className="logout" onClick={() => logout()}>
               Logout
