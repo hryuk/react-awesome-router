@@ -1,7 +1,7 @@
 {
   "name": "react-awesome-router",
   "version": "1.0.1",
-  "description": "",
+  "description": "Lightweight middleware-based react router",
   "files": [
     "dist"
   ],
@@ -12,16 +12,16 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Hryuk <edusvh@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/history": "^4.7.3",
     "@types/react": "^16.9.17",
+    "@types/path-to-regexp": "^1.7.0",
     "prettier": "1.19.1",
     "typescript": "^3.7.4"
   },
   "dependencies": {
-    "@types/path-to-regexp": "^1.7.0",
     "history": "^4.10.1",
     "path-to-regexp": "^6.1.0",
     "react": "^16.12.0"
