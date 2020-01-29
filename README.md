@@ -1,4 +1,4 @@
-# React Awesome Router (WIP! big breaking changes comming in the following days)
+# React Awesome Router
 
 A simple, lightweight, middleware oriented router for react applications.
 
@@ -8,7 +8,7 @@ Comming from non-react world, routing throgh JSX components feels annoying to me
 
 When starting with react hooks, I realized how simple it will be to write a react router with hooks, [history.js](https://github.com/ReactTraining/history) and [path-to-regexp](https://github.com/pillarjs/path-to-regexp); indeed I think the whole module is far below 200 lines of code. This module provides basic routing features to small applications, and allows more advanced features on bigger applications through the use of custom ad-hoc middlewares.
 
-## Installation (not published yet)
+## Installation
 
 ```bash
 npm i react-awesome-router --save
