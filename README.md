@@ -114,7 +114,7 @@ You can also define Route guards. Guards are executed after route resolution and
 | Property        |           Type           | Description                                                                                                                                |
 | --------------- | :----------------------: | ------------------------------- |
 | **middleware** | `(router: Router) => boolean` | A function returning a boolean. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component |
-| **fallback** | `JSX.Element | null` | A JSX component that will be rendered when the middleware returns false |
+| **fallback** | `JSX.Element` | A JSX component that will be rendered when the middleware returns false |
 
 Guards are defined as an optional Route property.
 
