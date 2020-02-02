@@ -68,7 +68,7 @@ const {location, context, params, setLocation, setContext} = useLocation();
 ```
 
 | Property        |           Type           | Description                                                                                                                                |
-| --------------- | :----------------------: | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| --------------- | :----------------------: | ------------------------------- |
 | **location**    |         `string`         | The current routed path                                                                                                                    |
 | **setLocation** | `function(string)=>void` | Sets the current location. If the location provided is the current location, triggers another render of the current route                  |
 | **context**     |         `Object`         | A global router state. Can be used to set global state related to router, such as authentication state or user information                 |
@@ -110,8 +110,9 @@ export default Route3;
 ```
 
 You can also define Route guards. Guards are executed after route resolution and before component render, allowing to conditionally render the component basend on custom rules like authentication or user role. Guards are Objects with two members:
-| Property | Type | Description |
-| -------- | :----------: | ----------|
+
+| Property        |           Type           | Description                                                                                                                                |
+| --------------- | :----------------------: | ------------------------------- |
 | **middleware** | `(router: Router) => boolean` | A function returning a boolean. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component |
 | **fallback** | `JSX.Element | null` | A JSX component that will be rendered when the middleware returns false |
 
