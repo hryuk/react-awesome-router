@@ -1,7 +1,11 @@
 {
   "name": "react-awesome-router",
-  "version": "1.0.2",
+  "version": "2.0.0-rc.1",
   "description": "Lightweight middleware-based react router",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hryuk/react-awesome-router"
+  },
   "files": [
     "dist"
   ],

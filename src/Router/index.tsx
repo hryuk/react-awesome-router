@@ -2,17 +2,30 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createBrowserHistory, History } from 'history';
 import { RouterContext } from '../Context';
 
-import { IRouterProps, IRouterState } from '../types';
+import { Route } from '../types';
 import Path from '../PathUtils';
 
+export interface RouterState {
+  location: string;
+  params: Object;
+  routes: Array<Route>;
+  context: Object;
+  forceRefresh: number;
+  routedElement: React.ReactNode | undefined;
+}
+
+export interface IRouterProps {
+  routes: Array<Route>;
+}
+
 export const Router: React.FC<IRouterProps> = props => {
-  const history = useRef<History | null>(null);
-  const initialState: IRouterState = {
+  const history = useRef<History | undefined>(undefined);
+  const initialState: RouterState = {
     location: '',
     params: {},
     context: {},
     routes: props.routes,
-    routedElement: null,
+    routedElement: undefined,
     forceRefresh: 0
   };
 
@@ -61,33 +74,31 @@ export const Router: React.FC<IRouterProps> = props => {
     });
 
     if (route) {
+      let guardReturn = undefined;
+
       if (route.guards) {
         for (const guard of route.guards) {
-          if (
-            !guard.middleware({
-              location: state.location,
-              setLocation,
-              setContext,
-              context: state.context,
-              params: state.params,
-              component: state.routedElement
-            })
-          ) {
-            setState({
-              ...state,
-              routedElement: guard.fallback
-            });
-            return;
-          }
+          guardReturn = guard({
+            location: state.location,
+            setLocation,
+            setContext,
+            context: state.context,
+            params: state.params,
+          }, () => undefined);
+          if (guardReturn) break;
         }
       }
 
       setState({
         ...state,
         params: Path.parse(route.path, state.location),
-        routedElement: route.component
+        routedElement: guardReturn ?? route.component
       });
+
     }
+
+
+
   }, [state.location, state.forceRefresh]);
 
   return (
