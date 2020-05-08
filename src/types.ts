@@ -12,4 +12,4 @@ export interface Router {
   setContext: (context: Object) => void;
 }
 
-export type Guard = (router: Router, next: () => undefined) => React.ReactNode | undefined;
+export type Guard = (router: Router, next: () => undefined) => React.ReactNode;

@@ -74,7 +74,8 @@ export const Router: React.FC<IRouterProps> = props => {
     });
 
     if (route) {
-      let guardReturn = undefined;
+      let guardReturn: React.ReactNode = undefined;
+      let nexted = false;
 
       if (route.guards) {
         for (const guard of route.guards) {
@@ -84,8 +85,11 @@ export const Router: React.FC<IRouterProps> = props => {
             setContext,
             context: state.context,
             params: state.params,
-          }, () => undefined);
-          if (guardReturn) break;
+          }, () => {
+            nexted = true
+            return undefined
+          });
+          if (!nexted && guardReturn) break;
         }
       }
 

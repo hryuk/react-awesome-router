@@ -109,23 +109,16 @@ const Route3 = () => {
 export default Route3;
 ```
 
-You can also define Route guards. Guards are executed after route resolution and before component render, allowing to conditionally render the component basend on custom rules like authentication or user role. Guards are Objects with two members:
-
-| Property        |           Type           | Description                                                                                                                                |
-| --------------- | :----------------------: | ------------------------------- |
-| **middleware** | `(router: Router) => boolean` | A function returning a boolean. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component |
-| **fallback** | `JSX.Element` | A JSX component that will be rendered when the middleware returns false |
-
-Guards are defined as an optional Route property.
+You can also define Route guards. Guards are executed after route resolution and before component render, allowing to conditionally render the component basend on custom rules like authentication or user role. A guard is a function returning either a React.ReactNode or ```next()```. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. Returning ```next()``` states the guard don't want to take actions, and the router should return the routed component if no remaining guards says otherwise.
 
 ```jsx
-const authGuard = {
-  middleware: router => {
-    const authenticated = !!router.context?.auth?.logued;
-    return authenticated;
-  },
-
-  fallback: <Unauthorized />
+const authGuard = (router, next) => {
+  const authenticated = !!router.context?.auth?.logued;
+  if (authenticated) {
+    return next();
+  } else {
+    return <Unauthorized />;
+  }
 };
 
 export const routes = [
