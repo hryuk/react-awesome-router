@@ -138,6 +138,31 @@ export const routes = [
 
 Fully working example application, bootstraped with create-react-app is provided in the [example](https://github.com/hzeroo/react-awesome-router/tree/master/example) directory.
 
+## Upgrading from v1
+Route definition changed from being defined as an object in v1:
+```jsx
+const authGuard = {
+  middleware: router => {
+    const authenticated = !!router.context?.auth?.logued;
+    return authenticated;
+  },
+
+  fallback: <Unauthorized />
+};
+```
+
+In v2, routes are defined as functions:
+```jsx
+const authGuard = (router, next) => {
+  const authenticated = !!router.context?.auth?.logued;
+  if (authenticated) {
+    return next();
+  } else {
+    return <Unauthorized />;
+  }
+};
+```
+
 ## Running for developement
 
 To run both the router module and the example together with live reloading, first clone the repository:
