@@ -1,30 +1,15 @@
-export interface IRoute {
+export interface Route {
   path: string;
-  component: JSX.Element;
-  guards?: Array<IGuard>;
-}
-export interface IRouterProps {
-  routes: Array<IRoute>;
-}
-export interface IRouterState {
-  location: string;
-  params: Object;
-  routes: Array<IRoute>;
-  context: Object;
-  forceRefresh: number;
-  routedElement: JSX.Element | null;
+  component: React.ReactNode;
+  guards?: Array<Guard>;
 }
 
-export interface IRouter {
+export interface Router {
   location: string;
   context: any;
   params: any;
-  component: JSX.Element | null;
   setLocation: (location: string) => void;
   setContext: (context: Object) => void;
 }
 
-export interface IGuard {
-  middleware: (router: IRouter) => boolean;
-  fallback: JSX.Element | null;
-}
+export type Guard = (router: Router, next: () => undefined) => React.ReactNode;

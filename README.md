@@ -109,23 +109,16 @@ const Route3 = () => {
 export default Route3;
 ```
 
-You can also define Route guards. Guards are executed after route resolution and before component render, allowing to conditionally render the component basend on custom rules like authentication or user role. Guards are Objects with two members:
-
-| Property        |           Type           | Description                                                                                                                                |
-| --------------- | :----------------------: | ------------------------------- |
-| **middleware** | `(router: Router) => boolean` | A function returning a boolean. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. If middleware returns true, the router will render the route component |
-| **fallback** | `JSX.Element` | A JSX component that will be rendered when the middleware returns false |
-
-Guards are defined as an optional Route property.
+You can also define Route guards. Guards are executed after route resolution and before component render, allowing to conditionally render the component basend on custom rules like authentication or user role. A guard is a function returning either a React.ReactNode or ```next()```. A router object is provided as first param, which allows the middleware to access the same resources as the useLocation hook. Returning ```next()``` states the guard don't want to take actions, and the router should return the routed component if no remaining guards says otherwise.
 
 ```jsx
-const authGuard = {
-  middleware: router => {
-    const authenticated = !!router.context?.auth?.logued;
-    return authenticated;
-  },
-
-  fallback: <Unauthorized />
+const authGuard = (router, next) => {
+  const authenticated = !!router.context?.auth?.logued;
+  if (authenticated) {
+    return next();
+  } else {
+    return <Unauthorized />;
+  }
 };
 
 export const routes = [
@@ -144,6 +137,31 @@ export const routes = [
 > Note that guards are defined as an array, and are executed in the same order as provided: The router will render the first guard's fallback that returns false, or the route component if all guards return true.
 
 Fully working example application, bootstraped with create-react-app is provided in the [example](https://github.com/hzeroo/react-awesome-router/tree/master/example) directory.
+
+## Upgrading from v1
+Route definition changed from being defined as an object in v1:
+```jsx
+const authGuard = {
+  middleware: router => {
+    const authenticated = !!router.context?.auth?.logued;
+    return authenticated;
+  },
+
+  fallback: <Unauthorized />
+};
+```
+
+In v2, routes are defined as functions:
+```jsx
+const authGuard = (router, next) => {
+  const authenticated = !!router.context?.auth?.logued;
+  if (authenticated) {
+    return next();
+  } else {
+    return <Unauthorized />;
+  }
+};
+```
 
 ## Running for developement
 
