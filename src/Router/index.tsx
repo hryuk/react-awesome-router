@@ -16,6 +16,7 @@ export interface RouterState {
 
 export interface IRouterProps {
   routes: Array<Route>;
+  children: React.ReactNode
 }
 
 export const Router: React.FC<IRouterProps> = props => {
@@ -56,10 +57,10 @@ export const Router: React.FC<IRouterProps> = props => {
       location: history.current.location.pathname
     });
 
-    const unlisten = history.current.listen(location => {
+    const unlisten = history.current.listen(update => {
       setState({
         ...state,
-        location: location.pathname
+        location: update.location.pathname
       });
     });
 
