@@ -1,12 +1,12 @@
 # React Awesome Router
 
-A simple, lightweight, middleware oriented router for react applications.
+A simple, lightweight, middleware oriented router for React applications.
 
 ## Motivation
 
-Comming from non-react world, routing throgh JSX components feels annoying to me. I don't like to spread the routing logic between different react components or write JSX components to extend router capabilities (like auth). I also missed other features I enjoy and was used to like [Angular guards](https://angular.io/api/router/CanActivate) and [Koa](https://github.com/koajs/koa) middleware based architecture.
+Comming from non-React world, routing throgh JSX components feels annoying to me. I don't like to spread the routing logic between different react components or write JSX components to extend router capabilities (like auth). I also missed other features I enjoy and was used to like [Angular guards](https://angular.io/api/router/CanActivate) and [Koa](https://github.com/koajs/koa) middleware based architecture.
 
-When starting with react hooks, I realized how simple it will be to write a react router with hooks, [history.js](https://github.com/ReactTraining/history) and [path-to-regexp](https://github.com/pillarjs/path-to-regexp); indeed I think the whole module is far below 200 lines of code. This module provides basic routing features to small applications, and allows more advanced features on bigger applications through the use of custom ad-hoc middlewares.
+When starting with React hooks, I realized how simple it will be to write a React router with hooks, [history.js](https://github.com/ReactTraining/history) and [path-to-regexp](https://github.com/pillarjs/path-to-regexp); indeed I think the whole module is far below 200 lines of code. This module provides basic routing features to small applications, and allows more advanced features on bigger applications through the use of custom ad-hoc middlewares.
 
 ## Installation
 
@@ -163,7 +163,7 @@ const authGuard = (router, next) => {
 };
 ```
 
-## Running for developement
+## Running for development
 
 To run both the router module and the example together with live reloading, first clone the repository:
 
